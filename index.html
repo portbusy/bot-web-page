@@ -1,34 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="custom-webapp-ui" lang="it">
 <head>
-    <title>Il mio file HTML con tema Merlot</title>
+    <title>
+        Aggiunta posto M&D
+    </title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/jekyll-theme-merlot@0.2.0/assets/css/style.scss">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         /* Personalizza i colori */
         body {
             background-color: #333;
             color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         h1 {
             color: #2980b9;
+            text-align: center;
+            margin-bottom: 30px;
         }
-        /* Aggiungi l'icona */
-        .icon {
-            font-family: 'Font Awesome';
-            font-size: 24px;
-            color: #2980b9;
+        h1 img {
+            vertical-align: middle;
+            margin-right: 10px;
+            width: 50px; /* Adjust the size as needed */
+        }
+        .icon-circle {
+            background-color: #2980b9; /* Change the background color as needed */
+            border-radius: 50%;
+            padding: 2px; /* Adjust the padding to control the circle size */
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="text"]::placeholder {
+            color: #999;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #2980b9;
+            box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #2980b9;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
-    <h1><link rel="icon" href="icons/my-icon.png" type="image/png"> Ciao!</h1>
-    <p>Questo è un esempio di file HTML con il tema Merlot di Jekyll.</p>
-    <form>
-        <input type="text" placeholder="Nome del locale" /><br />
-        <input type="text" placeholder="Indirizzo" /><br />
-        <input type="text" placeholder="Città" /><br />
-        <input type="text" placeholder="Tipologia" /><br />
+    <h1><img src="icons/my-icon.png" alt="My Icon" class="icon-circle"> Ciao!</h1>
+    <p style="text-align: center">Aggiungi di seguito i dettagli per il posto che vuoi aggiungere <i class="fas fa-smile-beam"></i></p>
+    <form id="myForm">
+        <input type="text" placeholder="Nome del locale" required />
+        <input type="text" placeholder="Indirizzo" required />
+        <input type="text" placeholder="Citta" required />
+        <input type="text" placeholder="Tipologia" required />
+        <button type="button" id="submitBtn" disabled>Invia</button>
+        <script>
+        const form = document.getElementById('myForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const inputs = form.querySelectorAll('input[required]');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', toggleButton);
+        });
+
+        function toggleButton() {
+            const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
+            submitBtn.disabled = !allFilled;
+        }
+
+        submitBtn.addEventListener('click', () => {
+            const formData = {};
+            inputs.forEach(input => {
+                formData[input.placeholder] = input.value;
+            });
+
+            mainButton.onClick(function() {
+                window.Telegram.WebApp.sendData(JSON.stringify(formData));
+            });
+        });
+    </script>
     </form>
+
 </body>
 </html>
