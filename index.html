@@ -2,17 +2,33 @@
 <html>
 <head>
     <title>Il mio file HTML con tema Merlot</title>
-    <link rel="stylesheet" href="https://unpkg.com/jekyll-theme-merlot@0.2.0/assets/css/style.scss">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/jekyll-theme-merlot@0.2.0/assets/css/style.scss">
+    <style>
+        /* Personalizza i colori */
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            color: #c0392b;
+        }
+        /* Aggiungi l'icona */
+        .icon {
+            font-family: 'Font Awesome';
+            font-size: 24px;
+            color: #2980b9;
+        }
+    </style>
 </head>
 <body>
-    <h1>Ciao!</h1>
-    <p>Inserisci qui sotto le informazioni del posto che vuoi aggiungere :)</p>
+    <h1><link class="icon" rel="icon" href="icons/my-icon.png" type="image/png"> Ciao, mondo!</h1>
+    <p>Questo è un esempio di file HTML con il tema Merlot di Jekyll.</p>
     <form>
-        <input type="text" placeholder="Nome" /><br />
+        <input type="text" placeholder="Nome del locale" /><br />
         <input type="text" placeholder="Indirizzo" /><br />
-        <input type="text" placeholder="Zona" /><br />
         <input type="text" placeholder="Città" /><br />
+        <input type="text" placeholder="Tipologia" /><br />
     </form>
 </body>
 </html>
