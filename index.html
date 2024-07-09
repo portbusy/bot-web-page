@@ -95,10 +95,7 @@
             inputs.forEach(input => {
                 formData[input.placeholder] = input.value;
             });
-
-            submitBtn.onClick(function() {
-                window.Telegram.WebApp.sendData(JSON.stringify(formData));
-            });
+            window.Telegram.WebApp.sendData(JSON.stringify(formData));
         });
     </script>
     </form>
