@@ -73,14 +73,23 @@
         <input type="text" id="dettagli" placeholder="Tipologia (Vegano, Cocktail Bar, Ristorante, Etnico ecc)" required />
         <input type="text" id="note" placeholder="Note" />
         <input type="text" id="link" placeholder="Link" />
-        <button type="button" id="submitBtn" disabled>Invia</button>
+<!--        <button type="button" id="submitBtn" disabled>Invia</button>-->
     </form>
     <script>
         const app = window.Telegram.WebApp;
+        app.ready()
         const init_data = app.initData;
+        const query_id = init_data.split("&")[0].split("=")[1];
         const form = document.getElementById('myForm');
-        const submitBtn = document.getElementById('submitBtn');
         const inputs = form.querySelectorAll('input[required]');
+
+        app.MainButton.setParams(
+            {
+                text: "Invia",
+                color: "#2980b9",
+                text_color: "#fff"
+            }
+        )
 
         inputs.forEach(input => {
             input.addEventListener('input', toggleButton);
@@ -88,7 +97,7 @@
         console.log("pippo "+init_data)
         function toggleButton() {
             const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
-            submitBtn.disabled = !allFilled;
+            app.MainButton.isActive = !allFilled;
         }
 
         submitBtn.addEventListener('click', () => {
