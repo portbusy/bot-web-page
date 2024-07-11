@@ -87,17 +87,20 @@
             {
                 text: "Invia",
                 color: "#2980b9",
-                text_color: "#fff"
+                text_color: "#fff",
+                is_visible: "true"
             }
         )
-        app.MainButton.isVisible = true
+
         inputs.forEach(input => {
             input.addEventListener('input', toggleButton);
         });
-        console.log("pippo "+init_data)
+        console.log("pippo "+init_data+" "+query_id)
         function toggleButton() {
             const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
-            app.MainButton.isActive = !allFilled;
+            if (allFilled){
+                app.MainButton.enable();
+            }
         }
 
         app.MainButton.addEventListener('click', () => {
