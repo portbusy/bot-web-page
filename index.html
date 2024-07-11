@@ -100,12 +100,12 @@
             app.MainButton.isActive = !allFilled;
         }
 
-        submitBtn.addEventListener('click', () => {
+        app.MainButton.addEventListener('click', () => {
             const formData = {};
             inputs.forEach(input => {
                 formData[input.id] = input.value;
             });
-            app.answerWebAppQuery(JSON.stringify(formData));
+            app.answerWebAppQuery(query_id, JSON.stringify(formData));
         });
 
     </script>
