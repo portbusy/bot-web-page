@@ -90,7 +90,7 @@
                 text_color: "#fff"
             }
         )
-
+        app.MainButton.isVisible = true
         inputs.forEach(input => {
             input.addEventListener('input', toggleButton);
         });
@@ -105,7 +105,7 @@
             inputs.forEach(input => {
                 formData[input.id] = input.value;
             });
-            app.answerWebAppQuery(query_id, JSON.stringify(formData));
+            window.Telegram.answerWebAppQuery(query_id, JSON.stringify(formData));
         });
 
     </script>
