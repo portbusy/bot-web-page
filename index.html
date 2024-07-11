@@ -1,9 +1,6 @@
-<!DOCTYPE html>
 <html ng-app="custom-webapp-ui" lang="it">
 <head>
-    <title>
-        Aggiunta posto M&D
-    </title>
+    <title>Aggiunta posto M&D</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/jekyll-theme-merlot@0.2.0/assets/css/style.scss">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -69,14 +66,18 @@
     <h1><img src="icons/my-icon.png" alt="My Icon" class="icon-circle"> Ciao!</h1>
     <p style="text-align: center">Aggiungi di seguito i dettagli per il posto che vuoi aggiungere <i class="fas fa-smile-beam"></i></p>
     <form id="myForm">
-        <input type="text" placeholder="Nome del locale" required />
-        <input type="text" placeholder="Indirizzo" required />
-        <input type="text" placeholder="Citta" required />
-        <input type="text" placeholder="Quando andare? (Aperitivo, Cena/Dopocena ecc)" required />
-        <input type="text" placeholder="Tipologia (Vegano, Cocktail Bar, Ristorante, Etnico ecc)" required />
-        <input type="text" placeholder="Note" />
+        <input type="text" id="locale" placeholder="Nome del locale" required />
+        <input type="text" id="via" placeholder="Indirizzo" required />
+        <input type="text" id="dove" placeholder="Citta" required />
+        <input type="text" id="tipologia" placeholder="Quando andare? (Aperitivo, Cena/Dopocena ecc)" required />
+        <input type="text" id="dettagli" placeholder="Tipologia (Vegano, Cocktail Bar, Ristorante, Etnico ecc)" required />
+        <input type="text" id="note" placeholder="Note" />
+        <input type="text" id="link" placeholder="Link" />
         <button type="button" id="submitBtn" disabled>Invia</button>
-        <script>
+    </form>
+    <script>
+        const app = window.Telegram.WebApp;
+        const init_data = app.initData;
         const form = document.getElementById('myForm');
         const submitBtn = document.getElementById('submitBtn');
         const inputs = form.querySelectorAll('input[required]');
@@ -84,7 +85,7 @@
         inputs.forEach(input => {
             input.addEventListener('input', toggleButton);
         });
-
+        console.log("pippo "+init_data)
         function toggleButton() {
             const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
             submitBtn.disabled = !allFilled;
@@ -93,12 +94,11 @@
         submitBtn.addEventListener('click', () => {
             const formData = {};
             inputs.forEach(input => {
-                formData[input.placeholder] = input.value;
+                formData[input.id] = input.value;
             });
-            window.Telegram.WebApp.sendData(JSON.stringify(formData));
+            app.answerWebAppQuery(JSON.stringify(formData));
         });
-    </script>
-    </form>
 
+    </script>
 </body>
 </html>
