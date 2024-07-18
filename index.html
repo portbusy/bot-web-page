@@ -77,8 +77,8 @@
     </form>
     <script>
         const app = window.Telegram.WebApp;
-        app.ready()
         const init_data = app.initData;
+        app.ready()
         const query_id = init_data.split("&")[0].split("=")[1];
         const form = document.getElementById('myForm');
         const inputs = form.querySelectorAll('input[required]');
@@ -88,7 +88,8 @@
                 text: "Invia",
                 color: "#2980b9",
                 text_color: "#fff",
-                is_visible: "true"
+                is_visible: true,
+                enabled: false
             }
         )
 
