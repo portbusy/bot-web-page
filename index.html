@@ -85,12 +85,12 @@
         app.MainButton.setParams(
             {
                 text: "Invia",
-                color: "#2980b9",
+                color: "#6a6a6a",
                 text_color: "#fff"
             }
         )
-        app.MainButton.visible = true
-        app.MainButton.disable()
+        app.MainButton.isVisible = true
+        app.MainButton.isActive = false
         app.ready()
 
 
@@ -101,12 +101,26 @@
         function toggleButton() {
             const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
             if (allFilled){
-                app.MainButton.enable();
+                app.MainButton.isActive = true
+                app.MainButton.setParams(
+                    {
+                        color: "#2980b9",
+                        text_color: "#fff"
+                    }
+                )
             }
 
         }
+        window.Telegram.WebApp.onEvent('mainButtonClicked',() => {
+            console.log('ah beh')
+            const formData = {};
+            inputs.forEach(input => {
+                formData[input.id] = input.value;
+            });
+            window.Telegram.answerWebAppQuery(query_id, JSON.stringify(formData));
+        });
 
-        app.MainButton.addEventListener('click', () => {
+        app.addEventListener('main_button_pressed ', () => {
             const formData = {};
             inputs.forEach(input => {
                 formData[input.id] = input.value;
