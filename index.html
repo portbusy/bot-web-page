@@ -78,7 +78,6 @@
     <script>
         const app = window.Telegram.WebApp;
         const init_data = app.initData;
-        app.ready()
         const query_id = init_data.split("&")[0].split("=")[1];
         const form = document.getElementById('myForm');
         const inputs = form.querySelectorAll('input[required]');
@@ -87,11 +86,13 @@
             {
                 text: "Invia",
                 color: "#2980b9",
-                text_color: "#fff",
-                is_visible: true,
-                enabled: false
+                text_color: "#fff"
             }
         )
+        app.MainButton.visible = true
+        app.MainButton.disable()
+        app.ready()
+
 
         inputs.forEach(input => {
             input.addEventListener('input', toggleButton);
@@ -105,7 +106,7 @@
 
         }
 
-        submitBtn.addEventListener('click', () => {
+        app.MainButton.addEventListener('click', () => {
             const formData = {};
             inputs.forEach(input => {
                 formData[input.id] = input.value;
