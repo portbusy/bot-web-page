@@ -120,14 +120,6 @@
             window.Telegram.answerWebAppQuery(query_id, JSON.stringify(formData));
         });
 
-        app.addEventListener('main_button_pressed ', () => {
-            const formData = {};
-            inputs.forEach(input => {
-                formData[input.id] = input.value;
-            });
-            window.Telegram.answerWebAppQuery(query_id, JSON.stringify(formData));
-        });
-
     </script>
 </body>
 </html>
