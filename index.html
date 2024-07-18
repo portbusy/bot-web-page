@@ -73,7 +73,7 @@
         <input type="text" id="dettagli" placeholder="Tipologia (Vegano, Cocktail Bar, Ristorante, Etnico ecc)" required />
         <input type="text" id="note" placeholder="Note" />
         <input type="text" id="link" placeholder="Link" />
-<!--        <button type="button" id="submitBtn" disabled>Invia</button>-->
+        <button type="button" id="submitBtn" disabled>Invia</button>
     </form>
     <script>
         const app = window.Telegram.WebApp;
@@ -101,9 +101,10 @@
             if (allFilled){
                 app.MainButton.enable();
             }
+
         }
 
-        app.MainButton.addEventListener('click', () => {
+        submitBtn.addEventListener('click', () => {
             const formData = {};
             inputs.forEach(input => {
                 formData[input.id] = input.value;
