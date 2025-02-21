@@ -24,7 +24,7 @@
             mainButton.text = 'Invia';
             mainButton.color = '#6a6a6a';
             mainButton.textColor = "#fff";
-
+            mainButton.isVisible = true;
             mainButton.onClick(
                 function () {
                     window.Telegram.WebApp.sendData(
@@ -45,6 +45,9 @@
                     console.log('else');
                 }
             };
+            window.Telegram.WebApp.ready();
+            mainButton.show();
+            console.log("ok")
         }]);
     </script>
 
