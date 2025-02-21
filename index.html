@@ -1,9 +1,55 @@
-<html ng-app="custom-webapp-ui" lang="it">
+<html lang="it" ng-app="customWebApp">
 <head>
     <title>Aggiunta posto M&D</title>
+    <!-- Inclusione di AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/jekyll-theme-merlot@0.2.0/assets/css/style.scss">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+    <script>
+        angular.module('customWebApp', [])
+            .controller('CustomController', ['$scope', function CustomController($scope) {
+            $scope.placeData = {
+                locale: '',
+                via: '',
+                dove: '',
+                tipologia: '',
+                dettagli: '',
+                note: '',
+                link: ''
+            }
+            const mainButton = window.Telegram.WebApp.MainButton;
+            mainButton.text = 'Invia';
+            mainButton.color = '#6a6a6a';
+            mainButton.textColor = "#fff";
+
+            mainButton.onClick(
+                function () {
+                    window.Telegram.WebApp.sendData(
+                        JSON.stringify($scope.placeData)
+                    )
+                }
+            );
+
+            $scope.checkFields = function() {
+                console.log('check fields'+$scope.placeData.locale);
+                if ($scope.placeData.locale.trim() !== '' &&
+                    $scope.placeData.via.trim() !== '' &&
+                    $scope.placeData.dove.trim() !== '' &&
+                    $scope.placeData.tipologia.trim() !== '' &&
+                    $scope.placeData.dettagli.trim() !== '') {
+                    console.log('if');
+                } else {
+                    console.log('else');
+                    £
+                }
+            };
+        }]);
+    </script>
+
+
+    <link href="https://unpkg.com/jekyll-theme-merlot@0.2.0/assets/css/style.scss" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         /* Personalizza i colori */
         body {
@@ -11,25 +57,30 @@
             color: #f9f9f9;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         h1 {
             color: #2980b9;
             text-align: center;
             margin-bottom: 30px;
         }
+
         h1 img {
             vertical-align: middle;
             margin-right: 10px;
-            width: 50px; /* Adjust the size as needed */
+            width: 50px;
         }
+
         .icon-circle {
-            background-color: #2980b9; /* Change the background color as needed */
+            background-color: #2980b9;
             border-radius: 50%;
-            padding: 2px; /* Adjust the padding to control the circle size */
+            padding: 2px;
         }
+
         form {
             max-width: 400px;
             margin: 0 auto;
         }
+
         input[type="text"] {
             width: 100%;
             padding: 10px;
@@ -38,14 +89,17 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         input[type="text"]::placeholder {
             color: #999;
         }
+
         input[type="text"]:focus {
             outline: none;
             border-color: #2980b9;
             box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
         }
+
         button {
             display: block;
             width: 100%;
@@ -56,67 +110,46 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         button:disabled {
             background-color: #ccc;
             cursor: not-allowed;
         }
     </style>
 </head>
-<body>
-    <h1><img src="icons/my-icon.png" alt="My Icon" class="icon-circle"> Ciao!</h1>
-    <p style="text-align: center">Aggiungi di seguito i dettagli per il posto che vuoi aggiungere <i class="fas fa-smile-beam"></i></p>
-    <form id="myForm">
-        <input type="text" id="locale" placeholder="Nome del locale" required />
-        <input type="text" id="via" placeholder="Indirizzo" required />
-        <input type="text" id="dove" placeholder="Citta" required />
-        <input type="text" id="tipologia" placeholder="Quando andare? (Aperitivo, Cena/Dopocena ecc)" required />
-        <input type="text" id="dettagli" placeholder="Tipologia (Vegano, Cocktail Bar, Ristorante, Etnico ecc)" required />
-        <input type="text" id="note" placeholder="Note" />
-        <input type="text" id="link" placeholder="Link" />
-    </form>
-    <script>
-        const app = window.Telegram.WebApp;
-        const init_data = app.initData;
-        const query_id = init_data.split("&")[0].split("=")[1];
-        const form = document.getElementById('myForm');
-        const inputs = form.querySelectorAll('input[required]');
-
-        app.MainButton.setParams(
-            {
-                text: "Invia",
-                color: "#6a6a6a",
-                text_color: "#fff"
-            }
-        )
-        app.MainButton.isVisible = true
-        app.MainButton.isActive = false
-
-        inputs.forEach(input => {
-            input.addEventListener('input', toggleButton);
-        });
-        console.log("pippo "+init_data+" "+query_id)
-        function toggleButton() {
-            const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
-            if (allFilled){
-                app.MainButton.isActive = true
-                app.MainButton.setParams(
-                    {
-                        color: "#2980b9",
-                        text_color: "#fff"
-                    }
-                )
-            }
-
-        }
-        app.onEvent('mainButtonClicked',() => {
-            console.log('ah beh')
-            const formData = {};
-            inputs.forEach(input => {
-                formData[input.id] = input.value;
-            });
-            app.sendData(JSON.stringify(formData));
-        });
-        app.ready();
-    </script>
+<body ng-controller="CustomController">
+<h1>
+    <img alt="My Icon" class="icon-circle" src="icons/my-icon.png"> Ciao!
+</h1>
+<p style="text-align: center">
+    Aggiungi di seguito i dettagli per il posto che vuoi aggiungere <i class="fas fa-smile-beam"></i>
+</p>
+<form name="myForm" novalidate>
+    <label>
+        <input ng-change="checkFields()" ng-model="placeData.locale" placeholder="Nome del locale" required
+               type="text"/>
+    </label>
+    <label>
+        <input ng-change="checkFields()" ng-model="placeData.via" placeholder="Indirizzo" required type="text"/>
+    </label>
+    <label>
+        <input ng-change="checkFields()" ng-model="placeData.dove" placeholder="Città" required type="text"/>
+    </label>
+    <label>
+        <input ng-change="checkFields()" ng-model="placeData.tipologia" placeholder="Quando andare? (Aperitivo, Cena/Dopocena ecc)"
+               required type="text"/>
+    </label>
+    <label>
+        <input ng-change="checkFields()" ng-model="placeData.dettagli"
+               placeholder="Tipologia (Vegano, Cocktail Bar, Ristorante, Etnico ecc)" required
+               type="text"/>
+    </label>
+    <label>
+        <input ng-model="placeData.note" placeholder="Note" type="text"/>
+    </label>
+    <label>
+        <input ng-model="placeData.link" placeholder="Link" type="text"/>
+    </label>
+</form>
 </body>
 </html>
