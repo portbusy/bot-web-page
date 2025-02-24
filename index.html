@@ -131,6 +131,7 @@
     </style>
 </head>
 <body ng-controller="CustomController">
+<div layout="row" layout-xs="column">
 <h1>
     <img alt="My Icon" class="icon-circle" src="icons/my-icon.png"> Ciao!
 </h1>
@@ -139,8 +140,18 @@
 </p>
 <form name="myForm" novalidate>
     <label>
-        <input aria-required="true" ng-change="checkFields()" ng-model="placeData.locale" placeholder="Nome del locale" required
-               type="text"/>
+        <input
+                type="text"
+                name="title"
+                ng-model="placeData.locale"
+                ng-pattern="string"
+                ng-trim="true"
+                ng-minlength=5
+                ng-change="checkFields()"
+                ng-model="placeData.locale"
+                placeholder="Nome del locale"
+                required
+        />
     </label>
     <label>
         <input ng-change="checkFields()" ng-model="placeData.via" placeholder="Indirizzo" required type="text"/>
@@ -167,5 +178,6 @@
         <input ng-model="placeData.link" placeholder="Link" type="text"/>
     </label>
 </form>
+</div>
 </body>
 </html>
