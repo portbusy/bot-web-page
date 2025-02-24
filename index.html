@@ -41,10 +41,14 @@
                     $scope.placeData.tipologia.trim() !== '' &&
                     $scope.placeData.dettagli.trim() !== '') {
                     console.log('if');
+                    mainButton.isActive = true;
                 } else {
                     console.log('else');
+                    mainButton.isActive = false;
                 }
             };
+            window.Telegram.WebApp.BackButton.show();
+            window.Telegram.WebApp.expand();
             window.Telegram.WebApp.ready();
             mainButton.show();
             console.log("ok")
@@ -128,14 +132,17 @@
 </p>
 <form name="myForm" novalidate>
     <label>
-        <input ng-change="checkFields()" ng-model="placeData.locale" placeholder="Nome del locale" required
+        <input aria-required="true" ng-change="checkFields()" ng-model="placeData.locale" placeholder="Nome del locale" required
                type="text"/>
     </label>
     <label>
         <input ng-change="checkFields()" ng-model="placeData.via" placeholder="Indirizzo" required type="text"/>
     </label>
     <label>
-        <input ng-change="checkFields()" ng-model="placeData.dove" placeholder="Città" required type="text"/>
+        <input ng-change="checkFields()" ng-model="placeData.zona" placeholder="Zona" required type="text"/>
+    </label>
+    <label>
+        <input ng-change="checkFields()" ng-model="placeData.dove" placeholder="Citt&agrave" required type="text"/>
     </label>
     <label>
         <input ng-change="checkFields()" ng-model="placeData.tipologia" placeholder="Quando andare? (Aperitivo, Cena/Dopocena ecc)"
@@ -147,7 +154,7 @@
                type="text"/>
     </label>
     <label>
-        <input ng-model="placeData.note" placeholder="Note" type="text"/>
+        <input ng-model="placeData.note" placeholder="Eventuali note" type="text"/>
     </label>
     <label>
         <input ng-model="placeData.link" placeholder="Link" type="text"/>
