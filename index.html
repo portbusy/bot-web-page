@@ -15,7 +15,7 @@
                 $scope.placeData = {
                     locale: '',
                     via: '',
-                    dove: '',
+                    dove: 'Milano',
                     tipologia: '',
                     dettagli: '',
                     note: '',
@@ -204,8 +204,14 @@
         </div>
     </label>
     <label>
-        <input ng-change="checkFields()" ng-model="placeData.dove" ng-model-options="{ updateOn: 'blur' }" placeholder="Citt&agrave"
-               type="text" name="dove" value="Milano" ng-value="Milano1" defaultValue="Pippo"/>
+        <input
+                ng-change="checkFields()"
+                ng-model="placeData.dove"
+                placeholder="Citt&agrave"
+                type="text"
+                name="dove"
+                ng-init="placeData.dove = 'Milano'"
+        />
     </label>
     <label>
         <input ng-change="checkFields()" ng-model="placeData.tipologia"
@@ -218,7 +224,7 @@
     </label>
     <label>
         <input ng-change="checkFields()" ng-model="placeData.dettagli"
-               ng-model-options="{ updateOn: 'blur' }" placeholder="Tipologia (Vegano, Cocktail Bar, Ristorante, Etnico ecc)"
+               placeholder="Tipologia (Vegano, Cocktail Bar, Ristorante, Etnico ecc)"
                required type="text" name="dettagli"/>
         <div class="error-message"
              ng-show="myForm.dettagli.$touched && myForm.dettagli.$error.required">
