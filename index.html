@@ -21,6 +21,7 @@
                 link: ''
             }
             const mainButton = window.Telegram.WebApp.MainButton;
+            const backButton = window.Telegram.WebApp.BackButton;
             mainButton.text = 'Invia';
             mainButton.color = '#6a6a6a';
             mainButton.textColor = "#fff";
@@ -28,11 +29,15 @@
             mainButton.onClick(
                 function () {
                     window.Telegram.WebApp.sendData(
-                        JSON.stringify($scope.placeData)
+                        JSON.stringify($scope.placeData);
                     )
                 }
             );
-
+            backButton.onClick(
+                function () {
+                    window.Telegram.WebApp.close();
+                }
+            )
             $scope.checkFields = function() {
                 console.log('check fields'+$scope.placeData.locale);
                 if ($scope.placeData.locale.trim() !== '' &&
@@ -53,7 +58,7 @@
                     mainButton.isActive = false;
                 }
             };
-            window.Telegram.WebApp.BackButton.show();
+            backButton.show();
             window.Telegram.WebApp.expand();
             window.Telegram.WebApp.ready();
             mainButton.show();
