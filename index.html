@@ -29,7 +29,7 @@
             mainButton.onClick(
                 function () {
                     window.Telegram.WebApp.sendData(
-                        JSON.stringify($scope.placeData);
+                        JSON.stringify($scope.placeData)
                     )
                 }
             );
@@ -37,7 +37,7 @@
                 function () {
                     window.Telegram.WebApp.close();
                 }
-            )
+            );
             $scope.checkFields = function() {
                 console.log('check fields'+$scope.placeData.locale);
                 if ($scope.placeData.locale.trim() !== '' &&
