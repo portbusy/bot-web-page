@@ -204,12 +204,8 @@
         </div>
     </label>
     <label>
-        <input ng-change="checkFields()" ng-model="placeData.dove" ng-model-options="{ updateOn: 'blur' }" placeholder="Citt&agrave" required
-               type="text" name="dove"/>
-        <div class="error-message"
-             ng-show="myForm.dove.$touched && myForm.dove.$error.required">
-            Il campo &egrave; obbligatorio.
-        </div>
+        <input ng-change="checkFields()" ng-model="placeData.dove" ng-model-options="{ updateOn: 'blur' }" placeholder="Citt&agrave"
+               type="text" name="dove" value="Milano" ng-value="Milano1" defaultValue="Pippo"/>
     </label>
     <label>
         <input ng-change="checkFields()" ng-model="placeData.tipologia"
