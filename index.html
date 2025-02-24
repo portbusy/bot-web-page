@@ -1,7 +1,7 @@
-<html lang="it">
+<html lang="it" ng-app="milanoEDintorniWebApp">
 <head>
     <title>Aggiunta posto M&D</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport"/>
     <!-- Inclusione di AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -12,62 +12,61 @@
     <script>
         angular.module('milanoEDintorniWebApp', [])
             .controller('CustomController', ['$scope', function CustomController($scope) {
-            $scope.placeData = {
-                locale: '',
-                via: '',
-                dove: '',
-                tipologia: '',
-                dettagli: '',
-                note: '',
-                link: ''
-            }
-            const mainButton = window.Telegram.WebApp.MainButton;
-            const backButton = window.Telegram.WebApp.BackButton;
-            mainButton.text = 'Invia';
-            mainButton.color = '#6a6a6a';
-            mainButton.textColor = "#fff";
-            mainButton.isVisible = true;
-            mainButton.onClick(
-                function () {
-                    window.Telegram.WebApp.sendData(
-                        JSON.stringify($scope.placeData)
-                    )
+                $scope.placeData = {
+                    locale: '',
+                    via: '',
+                    dove: '',
+                    tipologia: '',
+                    dettagli: '',
+                    note: '',
+                    link: ''
                 }
-            );
-            backButton.onClick(
-                function () {
-                    window.Telegram.WebApp.close();
-                }
-            );
-            $scope.checkFields = function() {
-                console.log('check fields'+$scope.placeData.locale);
-                if ($scope.placeData.locale.trim() !== '' &&
-                    $scope.placeData.via.trim() !== '' &&
-                    $scope.placeData.dove.trim() !== '' &&
-                    $scope.placeData.tipologia.trim() !== '' &&
-                    $scope.placeData.dettagli.trim() !== '') {
-                    console.log('if');
-                    mainButton.isActive = true;
-                    mainButton.setParams(
-                    {
-                        color: "#2980b9",
-                        text_color: "#fff"
+                const mainButton = window.Telegram.WebApp.MainButton;
+                const backButton = window.Telegram.WebApp.BackButton;
+                mainButton.text = 'Invia';
+                mainButton.color = '#6a6a6a';
+                mainButton.textColor = "#fff";
+                mainButton.isVisible = true;
+                mainButton.onClick(
+                    function () {
+                        window.Telegram.WebApp.sendData(
+                            JSON.stringify($scope.placeData)
+                        )
                     }
-                )
-                } else {
-                    console.log('else');
-                    mainButton.isActive = false;
-                }
-            };
-            backButton.show();
-            mainButton.show();
-            mainButton.disable();
-            window.Telegram.WebApp.ready();
-            window.Telegram.WebApp.expand();
-            console.log("ok")
-        }]);
+                );
+                backButton.onClick(
+                    function () {
+                        window.Telegram.WebApp.close();
+                    }
+                );
+                $scope.checkFields = function () {
+                    console.log('check fields ' + $scope.placeData.locale);
+                    if ($scope.placeData.locale.trim() !== '' &&
+                        $scope.placeData.via.trim() !== '' &&
+                        $scope.placeData.dove.trim() !== '' &&
+                        $scope.placeData.tipologia.trim() !== '' &&
+                        $scope.placeData.dettagli.trim() !== '') {
+                        console.log('if');
+                        mainButton.isActive = true;
+                        mainButton.setParams(
+                            {
+                                color: "#2980b9",
+                                text_color: "#fff"
+                            }
+                        )
+                    } else {
+                        console.log('else');
+                        mainButton.isActive = false;
+                    }
+                };
+                backButton.show();
+                mainButton.show();
+                mainButton.disable();
+                window.Telegram.WebApp.ready();
+                window.Telegram.WebApp.expand();
+                console.log("ok")
+            }]);
     </script>
-
 
     <style>
         /* Personalizza i colori */
@@ -149,10 +148,22 @@
             background-color: #ccc;
             cursor: not-allowed;
         }
+
+        .ng-invalid.ng-dirty {
+            border-color: #e74c3c !important;
+            border-shadow: 0 0 2px #e74c3c !important;
+            border-width: 2px !important;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85em;
+            margin-bottom: 20px;
+            margin-top: -10px;
+        }
     </style>
 </head>
-<body ng-app="milanoEDintorniWebApp" ng-controller="CustomController">
-<div>
+<body ng-controller="CustomController">
 <h1>
     <img alt="My Icon" class="icon-circle" src="icons/my-icon.png"> Ciao!
 </h1>
@@ -162,35 +173,61 @@
 <form name="myForm" novalidate>
     <label>
         <input
-                type="text"
-                name="title"
-                ng-model="placeData.locale"
-                ng-pattern="string"
-                ng-trim="true"
-                ng-minlength=5
+                name="locale"
                 ng-change="checkFields()"
                 ng-model="placeData.locale"
+                ng-model-options="{ updateOn: 'blur' }"
                 placeholder="Nome del locale"
                 required
+                type="text"
         />
+        <div class="error-message"
+             ng-show="myForm.locale.$touched && myForm.locale.$error.required">
+            Il campo &egrave; obbligatorio.
+        </div>
+    </label>
+
+    <label>
+        <input ng-change="checkFields()" ng-model="placeData.via" ng-model-options="{ updateOn: 'blur' }" placeholder="Indirizzo" required
+               type="text" name="via"/>
+        <div class="error-message"
+             ng-show="myForm.via.$touched && myForm.via.$error.required">
+            Il campo &egrave; obbligatorio.
+        </div>
     </label>
     <label>
-        <input ng-change="checkFields()" ng-model="placeData.via" placeholder="Indirizzo" required type="text"/>
+        <input ng-change="checkFields()" ng-model="placeData.zona" ng-model-options="{ updateOn: 'blur' }" placeholder="Zona" required
+               type="text" name="zona"/>
+        <div class="error-message"
+             ng-show="myForm.zona.$touched && myForm.zona.$error.required">
+            Il campo &egrave; obbligatorio.
+        </div>
     </label>
     <label>
-        <input ng-change="checkFields()" ng-model="placeData.zona" placeholder="Zona" required type="text"/>
+        <input ng-change="checkFields()" ng-model="placeData.dove" ng-model-options="{ updateOn: 'blur' }" placeholder="Citt&agrave" required
+               type="text" name="dove"/>
+        <div class="error-message"
+             ng-show="myForm.dove.$touched && myForm.dove.$error.required">
+            Il campo &egrave; obbligatorio.
+        </div>
     </label>
     <label>
-        <input ng-change="checkFields()" ng-model="placeData.dove" placeholder="Citt&agrave" required type="text"/>
-    </label>
-    <label>
-        <input ng-change="checkFields()" ng-model="placeData.tipologia" placeholder="Quando andare? (Aperitivo, Cena/Dopocena ecc)"
-               required type="text"/>
+        <input ng-change="checkFields()" ng-model="placeData.tipologia"
+               ng-model-options="{ updateOn: 'blur' }"
+               placeholder="Quando andare? (Aperitivo, Cena/Dopocena ecc)" required type="text" name="tipologia"/>
+        <div class="error-message"
+             ng-show="myForm.tipologia.$touched && myForm.tipologia.$error.required">
+            Il campo &egrave; obbligatorio.
+        </div>
     </label>
     <label>
         <input ng-change="checkFields()" ng-model="placeData.dettagli"
-               placeholder="Tipologia (Vegano, Cocktail Bar, Ristorante, Etnico ecc)" required
-               type="text"/>
+               ng-model-options="{ updateOn: 'blur' }" placeholder="Tipologia (Vegano, Cocktail Bar, Ristorante, Etnico ecc)"
+               required type="text" name="dettagli"/>
+        <div class="error-message"
+             ng-show="myForm.dettagli.$touched && myForm.dettagli.$error.required">
+            Il campo &egrave; obbligatorio.
+        </div>
     </label>
     <label>
         <input ng-model="placeData.note" placeholder="Eventuali note" type="text"/>
@@ -199,6 +236,5 @@
         <input ng-model="placeData.link" placeholder="Link" type="text"/>
     </label>
 </form>
-</div>
 </body>
 </html>
