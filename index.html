@@ -42,6 +42,12 @@
                     $scope.placeData.dettagli.trim() !== '') {
                     console.log('if');
                     mainButton.isActive = true;
+                    mainButton.setParams(
+                    {
+                        color: "#2980b9",
+                        text_color: "#fff"
+                    }
+                )
                 } else {
                     console.log('else');
                     mainButton.isActive = false;
