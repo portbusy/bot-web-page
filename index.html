@@ -1,6 +1,7 @@
 <html lang="it">
 <head>
     <title>Aggiunta posto M&D</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <!-- Inclusione di AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -9,7 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
     <script>
-        angular.module('customWebApp', [])
+        angular.module('milanoEDintorniWebApp', [])
             .controller('CustomController', ['$scope', function CustomController($scope) {
             $scope.placeData = {
                 locale: '',
@@ -59,10 +60,10 @@
                 }
             };
             backButton.show();
-            window.Telegram.WebApp.expand();
-            window.Telegram.WebApp.ready();
             mainButton.show();
             mainButton.disable();
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand();
             console.log("ok")
         }]);
     </script>
@@ -70,6 +71,21 @@
 
     <style>
         /* Personalizza i colori */
+        form {
+            width: 100%;
+            margin: 0 auto; /* se vuoi mantenere il centramento su schermi più grandi */
+            max-width: 600px; /* se vuoi comunque un limite, ma più ampio */
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+
         body {
             background-color: #333;
             color: #f9f9f9;
@@ -135,8 +151,8 @@
         }
     </style>
 </head>
-<body ng-controller="CustomController">
-<div  ng-app="milanoEDintorniWebApp">
+<body ng-app="milanoEDintorniWebApp" ng-controller="CustomController">
+<div>
 <h1>
     <img alt="My Icon" class="icon-circle" src="icons/my-icon.png"> Ciao!
 </h1>
